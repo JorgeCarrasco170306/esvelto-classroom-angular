@@ -1,1 +1,87 @@
-<p>HeaderComponent works!</p>,
+<!-- mat-toolbar actúa como el contenedor base con elevación y color primario -->
+<mat-toolbar color="primary" class="mat-elevation-z4 px-3">
+
+  <!-- Contenedor fluido de Bootstrap para limitar márgenes y estructurar en fila -->
+  <div class="container-fluid d-flex align-items-center justify-content-between p-0">
+
+    <!-- SECCIÓN IZQUIERDA: Marca / Logo y Menú Lateral -->
+    <div class="d-flex align-items-center gap-2">
+      <!-- Botón hamburguesa (ideal para disparar un mat-sidenav en móviles) -->
+      <button mat-icon-button aria-label="Abrir menú">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- Título de la app -->
+      <span class="fs-5 fw-semibold text-truncate user-select-none">
+        Mi Aplicación
+      </span>
+    </div>
+
+    <!-- SECCIÓN CENTRAL: Enlaces de navegación -->
+    <!-- d-none d-md-flex: Oculto en pantallas pequeñas, visible y flex en medianas/grandes -->
+    <nav class="d-none d-md-flex align-items-center gap-2">
+      <a mat-button routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon class="me-1">dashboard</mat-icon> Dashboard
+      </a>
+      <a mat-button routerLink="/proyectos" routerLinkActive="active-link">
+        <mat-icon class="me-1">folder</mat-icon> Proyectos
+      </a>
+      <a mat-button routerLink="/reportes" routerLinkActive="active-link">
+        <mat-icon class="me-1">bar_chart</mat-icon> Reportes
+      </a>
+    </nav>
+
+    <!-- SECCIÓN DERECHA: Acciones de usuario y Notificaciones -->
+    <div class="d-flex align-items-center gap-1">
+      
+      <!-- Icono de notificaciones con badge de Angular Material -->
+      <button 
+        mat-icon-button 
+        aria-label="Ver notificaciones"
+        [matBadge]="unreadNotifications" 
+        matBadgeColor="accent"
+        [matBadgeHidden]="unreadNotifications === 0"
+        matBadgeSize="small">
+        <mat-icon>notifications</mat-icon>
+      </button>
+
+      <!-- Botón de perfil con menú desplegable -->
+      <button 
+        mat-icon-button 
+        [matMenuTriggerFor]="userMenu" 
+        aria-label="Opciones de usuario">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <!-- Definición del mat-menu que se dispara con el botón anterior -->
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        <!-- Info rápida del usuario dentro del menú -->
+        <div class="px-3 py-2">
+          <p class="mb-0 fw-bold small text-dark">Jorge Carrasco</p>
+          <span class="text-muted small">admin@app.com</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item routerLink="/perfil">
+          <mat-icon>person</mat-icon>
+          <span>Mi Perfil</span>
+        </button>
+
+        <button mat-menu-item routerLink="/configuracion">
+          <mat-icon>settings</mat-icon>
+          <span>Configuración</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-menu-item (click)="onLogout()" class="text-danger">
+          <mat-icon class="text-danger">logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+
+    </div>
+
+  </div>
+</mat-toolbar>
