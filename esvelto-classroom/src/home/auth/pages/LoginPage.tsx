@@ -1,7 +1,44 @@
-import { Link } from "react-router-dom";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Mail, Lock } from "lucide-react";
+import { useState } from "react";
+import { login } from "../services/auth.service";
 
 export const LoginPage = () => {
+
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        email: "",
+        password: ""
+    });
+
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev, [name]: value,
+        }))
+    }
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+            await login(formData);
+            navigate("/dashboard");
+        } catch (err: any) {
+            console.error("Error en login:", err);
+        } finally {
+            setLoading(false);
+        }
+
+    }
+
+
+
     return (
         <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
             <div className="card w-full max-w-md bg-base-100 shadow-xl">
@@ -25,7 +62,7 @@ export const LoginPage = () => {
                     </div>
 
                     {/* Form */}
-                    <form className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-5">
 
                         {/* Email */}
                         <fieldset className="fieldset">
@@ -37,6 +74,9 @@ export const LoginPage = () => {
                                 <Mail className="size-5 text-base-content/50" />
 
                                 <input
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     type="email"
                                     placeholder="correo@ejemplo.com"
                                     autoComplete="email"
@@ -54,6 +94,9 @@ export const LoginPage = () => {
                                 <Lock className="size-5 text-base-content/50" />
 
                                 <input
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
                                     type="password"
                                     placeholder="••••••••"
                                     autoComplete="current-password"
@@ -86,9 +129,14 @@ export const LoginPage = () => {
                         <button
                             type="submit"
                             className="btn btn-primary w-full"
-                        >
-                            Iniciar sesión
-                            <ArrowRight className="size-5" />
+                        >{
+                                loading ?
+                                    (
+                                        <span className="loading loading-spinner"></span>
+                                    )
+                                    :
+                                    ("Iniciar Session")
+                            }
                         </button>
                     </form>
 
@@ -98,7 +146,7 @@ export const LoginPage = () => {
                     <p className="text-center text-sm text-base-content/70">
                         ¿No tienes una cuenta?{" "}
                         <Link
-                            to="/register"
+                            to="/auth/register"
                             className="link link-primary font-medium"
                         >
                             Crear una cuenta

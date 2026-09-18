@@ -209,7 +209,7 @@ export const RegisterPage = () => {
 
                     <p className="text-center text-sm text-base-content/70">
                         ¿Ya tienes una cuenta?{" "}
-                        <Link to="/auth/login" className="link link-primary font-medium">
+                        <Link to="/auth/sign-in" className="link link-primary font-medium">
                             Inicia sesión
                         </Link>
                     </p>
