@@ -8,7 +8,7 @@ export const HomeLayout = () => {
         <div>
             <HomeHeaderComponent/>
 
-            <main>
+            <main className="">
                 <Outlet />
             </main>
         </div>

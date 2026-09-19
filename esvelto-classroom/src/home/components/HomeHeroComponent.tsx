@@ -2,7 +2,7 @@ export const HomeHeroComponent = () => {
     return (
         <section className="hero min-h-screen bg-base-200">
             <div className="hero-content text-center">
-                <div className="max-w-3xl">`
+                <div className="max-w-3xl">
 
                     <div className="aura aura-rainbow">
 
@@ -10,7 +10,7 @@ export const HomeHeroComponent = () => {
 
                             <div className="card-body">
 
-                                <h1 className="text-5xl font-bold md:text-7xl">
+                                <h1 className="p-3 text-5xl font-bold md:text-7xl">
                                     Aprende.
                                     <span className="text-primary"> Enseña.</span>
                                     <br />

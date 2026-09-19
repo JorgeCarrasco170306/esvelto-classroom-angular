@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock } from "lucide-react";
 import { useState } from "react";
+import axios from "axios";
 import { login } from "../services/auth.service";
 
 export const LoginPage = () => {
@@ -12,6 +13,7 @@ export const LoginPage = () => {
     });
 
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -21,15 +23,25 @@ export const LoginPage = () => {
         }))
     }
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         setLoading(true);
+        setError("");
 
         try {
             await login(formData);
-            navigate("/dashboard");
+            navigate("/");
         } catch (err: any) {
+            const backendMessage = err.response?.data?.message || err.response?.data || "Error inesperado";
+            console.error(backendMessage);
+            
+            if (axios.isAxiosError(err) && err.response?.status === 404) {
+                setError("Credenciales Incorrectas.");
+            } else {
+                setError("No se pudo iniciar sesión. Verifica tus credenciales.");
+            }
+
             console.error("Error en login:", err);
         } finally {
             setLoading(false);
@@ -60,6 +72,12 @@ export const LoginPage = () => {
                             Inicia sesión en Esvelto Classroom
                         </p>
                     </div>
+
+                    {error && (
+                        <div role="alert" className="alert alert-error mb-4 text-sm">
+                            <span>{error}</span>
+                        </div>
+                    )}
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-5">

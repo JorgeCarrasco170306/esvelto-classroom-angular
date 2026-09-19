@@ -54,7 +54,7 @@ export const RegisterPage = () => {
 
             await register(registerPayload);
 
-            navigate("/dashboard");
+            navigate("/auth/verificate-email");
         } catch (err: any) {
             const message =
                 err.response?.data?.message ||
