@@ -1,59 +1,133 @@
-# EsveltoClassroom
+# Esvelto Classroom
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+**Esvelto Classroom** es una plataforma educativa enfocada en la gestión de estudiantes, profesores e instituciones, con herramientas para administrar y evaluar asignaciones académicas.
 
-## Development server
+Este repositorio contiene el **frontend web** de Esvelto Classroom, desarrollado con **Angular** y diseñado para consumir la API REST del backend de la aplicación.
 
-To start a local development server, run:
+## 🚀 Tecnologías
+
+* **Angular**
+* **TypeScript**
+* **Tailwind CSS**
+* **DaisyUI**
+* **Axios**
+* **Angular Router**
+* **Lucide Icons**
+
+## ✨ Características
+
+* 🔐 Autenticación de usuarios
+* 📝 Registro e inicio de sesión
+* 👨‍🏫 Gestión de profesores
+* 👨‍🎓 Gestión de estudiantes
+* 🏫 Gestión de instituciones
+* 📚 Gestión de asignaciones
+* 🤖 Preparado para funcionalidades de evaluación asistida por IA
+* 🌓 Soporte para temas claro y oscuro
+* 🔄 Integración con API REST
+
+## 🏗️ Arquitectura
+
+El proyecto está organizado siguiendo una estructura orientada a funcionalidades:
+
+```text
+src/
+├── app/
+├── home/
+│   ├── auth/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── models/
+│   └── ...
+├── services/
+│   └── axios/
+└── ...
+```
+
+La aplicación utiliza servicios para separar la comunicación con el backend de los componentes encargados de la interfaz.
+
+## 🔌 Backend
+
+El frontend consume la API REST desarrollada con **Spring Boot**.
+
+```text
+Angular
+   │
+   │ HTTP / REST
+   ▼
+Spring Boot API
+   │
+   ▼
+PostgreSQL
+```
+
+Backend:
+
+`https://github.com/JorgeCarrasco170306/esvelto-classroom-spring`
+
+> El backend debe estar ejecutándose para utilizar las funcionalidades que requieren comunicación con la API.
+
+## 🛠️ Instalación
+
+Clona el repositorio:
+
+```bash
+git clone <repository-url>
+cd esvelto-classroom
+```
+
+Instala las dependencias:
+
+```bash
+npm install
+```
+
+Inicia el servidor de desarrollo:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La aplicación estará disponible normalmente en:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📦 Build
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Para generar una versión de producción:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Los archivos generados estarán dentro de:
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```text
+dist/
 ```
 
-## Running end-to-end tests
+## 🔐 Configuración de la API
 
-For end-to-end (e2e) testing, run:
+La URL base del backend debe apuntar a la instancia de Spring Boot que esté ejecutándose.
 
-```bash
-ng e2e
+Ejemplo:
+
+```text
+http://localhost:8080/api
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Si utilizas una instancia diferente del backend, modifica la configuración correspondiente del cliente HTTP.
 
-## Additional Resources
+## 📌 Estado del proyecto
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+🚧 **En desarrollo**
+
+Esvelto Classroom continúa en desarrollo. Algunas funcionalidades y módulos pueden cambiar a medida que evoluciona la arquitectura de la aplicación.
+
+## 👨‍💻 Autor
+
+**Jorge Carrasco**
+
+Proyecto desarrollado como parte de mi aprendizaje y práctica de desarrollo **Full Stack**, utilizando Angular en el frontend y Spring Boot en el backend.
