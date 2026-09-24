@@ -1,0 +1,9 @@
+<button
+  type="button"
+  class="btn btn-ghost btn-circle"
+  [attr.aria-label]="commonService.theme() === 'emerald' ? 'Cambiar al tema forest' : 'Cambiar al tema emerald'"
+  [attr.title]="commonService.theme() === 'emerald' ? 'Cambiar al tema forest' : 'Cambiar al tema emerald'"
+  (click)="toggleTheme()"
+>
+x
+</button>
