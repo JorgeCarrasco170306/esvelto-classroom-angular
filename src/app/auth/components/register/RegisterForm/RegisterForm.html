@@ -1,0 +1,121 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+  @if (errorMessage()) {
+    <div
+      class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2"
+    >
+      <mat-icon class="text-rose-500 text-sm shrink-0">error_outline</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <!-- Name -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Nombre</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="name"
+        placeholder="Juan"
+        autocomplete="given-name"
+      />
+      <mat-icon matSuffix class="text-slate-400">person</mat-icon>
+      @if (registerForm.get('name')?.hasError('required') && registerForm.get('name')?.touched) {
+        <mat-error>El nombre es requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Lastname -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Apellido</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="lastname"
+        placeholder="Pérez"
+        autocomplete="family-name"
+      />
+      <mat-icon matSuffix class="text-slate-400">person_outline</mat-icon>
+      @if (
+        registerForm.get('lastname')?.hasError('required') && registerForm.get('lastname')?.touched
+      ) {
+        <mat-error>El apellido es requerido</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <!-- Email -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Correo electrónico</mat-label>
+    <input
+      matInput
+      type="email"
+      formControlName="email"
+      placeholder="juan.perez@ejemplo.com"
+      autocomplete="email"
+    />
+    <mat-icon matSuffix class="text-slate-400">email</mat-icon>
+    @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+      <mat-error>El correo electrónico es requerido</mat-error>
+    }
+    @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
+      <mat-error>Ingresa un correo válido</mat-error>
+    }
+    @if (registerForm.get('email')?.hasError('emailConflict')) {
+      <mat-error>El correo ya existe</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Password -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Contraseña</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      placeholder="••••••••"
+      autocomplete="new-password"
+    />
+    <mat-icon matSuffix class="text-slate-400">lock</mat-icon>
+    @if (
+      registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched
+    ) {
+      <mat-error>La contraseña es requerida</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Confirm Password -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Confirmar contraseña</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="••••••••"
+      autocomplete="new-password"
+    />
+    <mat-icon matSuffix class="text-slate-400">lock_outline</mat-icon>
+    @if (
+      registerForm.get('confirmPassword')?.hasError('required') &&
+      registerForm.get('confirmPassword')?.touched
+    ) {
+      <mat-error>Confirma tu contraseña</mat-error>
+    }
+    @if (registerForm.get('confirmPassword')?.hasError('passwordMismatch')) {
+      <mat-error>Las contraseñas no coinciden</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Actions -->
+  <p class="text-center">
+    Ya tienes una cuenta? <a class="text-blue-600" routerLink="/auth/login">Iniciar Sesión</a>
+  </p>
+  <div class="flex items-center justify-between mt-2 pt-2">
+    <button mat-button type="button" class="text-slate-600">Cancelar</button>
+
+    <button mat-flat-button color="primary" type="submit" class="flex items-center gap-1">
+      <mat-icon>person_add</mat-icon>
+      Registrarse
+    </button>
+  </div>
+</form>

@@ -1,0 +1,86 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+  <!-- Email -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Correo electrónico</mat-label>
+
+    <input
+      matInput
+      type="email"
+      formControlName="email"
+      placeholder="juan.perez@ejemplo.com"
+      autocomplete="email"
+    />
+
+    <mat-icon matSuffix class="text-slate-400"> email </mat-icon>
+
+    @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+      <mat-error>El correo electrónico es requerido</mat-error>
+    }
+
+    @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+      <mat-error>Ingresa un correo válido</mat-error>
+    }
+
+    @if (loginForm.controls.email.hasError('notVerified')) {
+      <mat-error> Este correo no ha sido verificado </mat-error>
+    }
+
+    @if (loginForm.controls.email.hasError('badCredentials')) {
+      <mat-error> Credenciales incorrectas </mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Password -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Contraseña</mat-label>
+
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      placeholder="••••••••"
+      autocomplete="current-password"
+    />
+
+    <mat-icon matSuffix class="text-slate-400"> lock </mat-icon>
+
+    @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+      <mat-error>La contraseña es requerida</mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Forgot password -->
+  <div class="-mt-2 flex justify-end">
+    <a
+      routerLink="/auth/forgot-password"
+      class="text-sm font-medium text-blue-600 transition-colors hover:text-blue-700"
+    >
+      ¿Olvidaste tu contraseña?
+    </a>
+  </div>
+
+  <!-- Login -->
+  <button mat-flat-button color="primary" type="submit" class="!h-12 !rounded-xl">
+    <mat-icon>login</mat-icon>
+    Iniciar sesión
+  </button>
+
+  <!-- Register -->
+  <div class="flex items-center gap-3 py-1">
+    <div class="h-px flex-1 bg-slate-200"></div>
+
+    <span class="text-xs font-medium uppercase tracking-wide text-slate-400">
+      ¿Primera vez aquí?
+    </span>
+
+    <div class="h-px flex-1 bg-slate-200"></div>
+  </div>
+
+  <a
+    routerLink="/auth/register"
+    class="flex h-11 items-center justify-center rounded-xl border border-slate-200 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50"
+  >
+    Crear una cuenta
+  </a>
+</form>
+```

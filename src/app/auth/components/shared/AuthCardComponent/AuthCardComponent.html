@@ -1,0 +1,20 @@
+<div class="md:mt-4">
+  <div class="flex justify-center">
+    <h1 class="text-3xl font-semibold text-center">
+      {{ title() }}
+    </h1>
+  </div>
+
+  <div class="w-full flex items-center justify-center animate-fade-in-up py-4">
+    <div class="w-full max-w-lg">
+      <mat-card
+        appearance="outlined"
+        class="w-full shadow-2xl rounded-3xl overflow-hidden bg-white border border-slate-100 transition-all duration-300"
+      >
+        <mat-card-content class="p-6 sm:p-8 pt-6">
+          <ng-content />
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
