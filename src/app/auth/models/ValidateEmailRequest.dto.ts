@@ -2,6 +2,6 @@
 
 
 export interface ValidateEmailRequest {
-    code: string,
+    verificationCode: string,
     email: string
 }

@@ -1,12 +1,15 @@
 import { Routes } from '@angular/router';
 import { AuthLayout } from './auth/layout/AuthLayout/AuthLayout';
 import { DashboardLayout } from './dashboard/layout/DashboardLayout/DashboardLayout';
+import { authGuard } from '../guards/AuthGuard.guard';
+import { publicGuard } from '../guards/PublicGuard.guard';
 
 export const routes: Routes = [
 
     {
         path: 'auth',
         component: AuthLayout,
+        canActivate: [publicGuard],
         children: [
             {
                 path: 'login',
@@ -30,6 +33,7 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardLayout,
+        canActivate: [authGuard],
         children: [
         ]
     },

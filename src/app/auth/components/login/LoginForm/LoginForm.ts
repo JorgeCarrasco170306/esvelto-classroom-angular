@@ -45,7 +45,6 @@ export class LoginForm {
     this.service.login(request)?.subscribe({
       next: (response) => {
 
-        // TODO: redirigir la zona de trabajo
         this.router.navigate(['/dashboard'])
         console.log(response.token);
       },

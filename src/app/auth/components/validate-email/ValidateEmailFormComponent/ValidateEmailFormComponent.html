@@ -17,6 +17,16 @@
     </div>
   </div>
 
+  @if (errorMessage()) {
+    <div
+      class="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+      role="alert"
+    >
+      <mat-icon class="mt-0.5 shrink-0 text-[20px] text-red-500">error</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
   <!-- Verification code -->
   <mat-form-field appearance="outline" class="w-full">
     <mat-label>Código de verificación</mat-label>
@@ -57,20 +67,24 @@
     <span class="text-sm text-slate-500"> ¿No recibiste el código? </span>
 
     <button
+      (click)="resendCode()"
+      [disabled]="resendRequested() || isResending()"
       type="button"
       class="text-sm font-medium text-blue-600 transition-colors hover:text-blue-700 hover:underline"
     >
-      Reenviar código
+      {{ resendRequested() ? 'Código reenviado' : isResending() ? 'Enviando...' : 'Reenviar código' }}
     </button>
   </div>
 
   <!-- Actions -->
   <div class="flex items-center justify-between border-t border-slate-100 pt-4">
-    <button mat-button type="button" class="text-slate-600">Cancelar</button>
+    <button routerLink="/auth/register" mat-button type="button" class="text-slate-600">
+      Cancelar
+    </button>
 
     <button mat-flat-button color="primary" type="submit" class="h-11 !ounded-xl">
       <mat-icon>check</mat-icon>
-      Verificar correo
+      Enviar
     </button>
   </div>
 </form>

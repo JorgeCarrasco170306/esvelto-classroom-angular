@@ -6,6 +6,7 @@ import { LoginRequest } from '../models/LoginRequest.dto';
 import { LoginResponse } from '../models/LoginResponse.dto';
 import { ValidateEmailRequest } from '../models/ValidateEmailRequest.dto';
 import { ResendVerificationEmail } from '../models/ResendEmailVerification';
+import { UserResponse } from '../models/UserResponse.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +32,23 @@ export class AuthService {
     return this.http.post(`${this.url}/auth/resend-verification`, request);
   }
 
+  me() {
+    return this.http.get<UserResponse>(`${this.url}/auth/me`);
+  }
 
-  //TODO
 
-  private saveToken() { }
-  private getToken() { }
+  //TODO: guardar el token en el localstorage
+
+  saveToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  removeToken() {
+    localStorage.removeItem('token')
+  }
 
 }
 
