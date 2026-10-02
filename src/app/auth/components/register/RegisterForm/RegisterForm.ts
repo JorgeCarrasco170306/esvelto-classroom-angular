@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/AuthService';
 import { RegisterRequest } from '../../../models/RegisterRequest.dto';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'RegisterForm',
@@ -17,12 +17,13 @@ import { RouterLink } from '@angular/router';
     MatInputModule,
     MatIconModule,
     RouterLink
-],
+  ],
   templateUrl: './RegisterForm.html',
 })
 export class RegisterForm {
   private _formBuilder = inject(FormBuilder);
   private service = inject(AuthService);
+  private router = inject(Router);
 
   errorMessage = signal<string | null>(null);
   successMessage = signal<string | null>(null);
@@ -62,7 +63,11 @@ export class RegisterForm {
 
     this.service.register(request).subscribe({
       next: (response) => {
-        this.successMessage.set('¡Registro completado exitosamente!');
+        this.router.navigate(['/auth/validate-email'], {
+          state: {
+            email: request.email
+          }
+        })
       },
       error: (error) => {
         if (error.status === 409) {

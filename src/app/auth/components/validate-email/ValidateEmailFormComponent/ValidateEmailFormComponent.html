@@ -1,1 +1,76 @@
-<p>ValidateEmailFormComponent works!</p>,
+<form [formGroup]="validateEmailForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+  <!-- Information message -->
+  <div
+    class="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"
+  >
+    <mat-icon class="mt-0.5 shrink-0 text-[20px] text-emerald-500"> mark_email_read </mat-icon>
+
+    <div class="flex flex-col gap-1">
+      <span class="font-medium">
+        Hemos enviado un código al correo electrónico :
+        <span class="font-semibold">{{ email() }}</span>
+      </span>
+
+      <span class="text-xs text-emerald-600">
+        Revisa también la carpeta de Spam si no lo encuentras.
+      </span>
+    </div>
+  </div>
+
+  <!-- Verification code -->
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Código de verificación</mat-label>
+
+    <input
+      matInput
+      formControlName="code"
+      inputmode="numeric"
+      autocomplete="one-time-code"
+      placeholder="Introduce el código"
+    />
+
+    <mat-icon matSuffix class="text-slate-400"> verified_user </mat-icon>
+
+    @if (
+      validateEmailForm.controls.code.hasError('minlength') &&
+      validateEmailForm.controls.code.touched
+    ) {
+      <mat-error> El código debe contener 6 dígitos </mat-error>
+    }
+
+    @if (
+      validateEmailForm.controls.code.hasError('maxlength') &&
+      validateEmailForm.controls.code.touched
+    ) {
+      <mat-error> El código debe contener 6 dígitos </mat-error>
+    }
+
+    @if (
+      validateEmailForm.controls.code.hasError('pattern') && validateEmailForm.controls.code.touched
+    ) {
+      <mat-error> El código solo puede contener números </mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Resend -->
+  <div class="flex flex-col items-center gap-1 text-center">
+    <span class="text-sm text-slate-500"> ¿No recibiste el código? </span>
+
+    <button
+      type="button"
+      class="text-sm font-medium text-blue-600 transition-colors hover:text-blue-700 hover:underline"
+    >
+      Reenviar código
+    </button>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+    <button mat-button type="button" class="text-slate-600">Cancelar</button>
+
+    <button mat-flat-button color="primary" type="submit" class="h-11 !ounded-xl">
+      <mat-icon>check</mat-icon>
+      Verificar correo
+    </button>
+  </div>
+</form>
