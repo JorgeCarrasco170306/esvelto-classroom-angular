@@ -41,6 +41,14 @@ export const routes: Routes = [
                 path: 'institutions',
                 loadComponent: () => import('./dashboard/institutions/pages/InstitutionsPage/InstitutionsPage').then(x => x.InstitutionsPage)
             },
+            {
+                path: 'institutions/create',
+                loadComponent: () => import('./dashboard/institutions/pages/CreateInstitutionPage/CreateInstitutionPage').then(x => x.CreateInstitutionPage)
+            },
+            {
+                path: 'institutions/:id',
+                loadComponent: () => import('./dashboard/institutions/pages/InstitutionPage/InstitutionPage').then(x => x.InstitutionPage)
+            },
             // ! courses
             {
                 path: 'courses',

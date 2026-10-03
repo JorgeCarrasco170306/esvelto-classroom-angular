@@ -1,0 +1,48 @@
+<PageHeaderComponent title="Crear Institución" [buttons]="buttons" />
+
+<div class="">
+  <form [formGroup]="form" (ngSubmit)="submit()" action="">
+    <mat-form-field hintLabel="Recomendamos usar el nombre completo de la institución.">
+      <mat-label>Nombre de la institución</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        #input
+        placeholder="Universidad Autónoma de Santo Domingo"
+      />
+      @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+        <mat-error>El nombre de la institución es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field hintLabel="Testing">
+      <mat-label>Imagen url</mat-label>
+      <input
+        formControlName="imageUrl"
+        matInput
+        #input
+        maxlength="10"
+        placeholder="Universidad Autónoma de Santo Domingo"
+      />
+      @if (form.controls.imageUrl.touched && form.controls.imageUrl.hasError('required')) {
+        <mat-error>La URL de la imagen es obligatoria.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="flex justify-end">
+      <button type="submit" matButton="filled">Guardar <mat-icon>check</mat-icon></button>
+    </div>
+  </form>
+
+  @if (submitError()) {
+    <p class="mt-4 text-sm text-red-600">{{ submitError() }}</p>
+  }
+
+  <!-- <mat-form-field>
+    <mat-label>Select me</mat-label>
+    <mat-select>
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+    <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+  </mat-form-field> -->
+</div>

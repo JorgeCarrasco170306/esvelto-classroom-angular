@@ -1,5 +1,11 @@
 <mat-form-field appearance="outline">
   <mat-label>{{ label() }}</mat-label>
-  <input type="text" [placeholder]="placeholder()" matInput />
+  <input
+    [(ngModel)]="query"
+    (input)="onSearch()"
+    type="text"
+    [placeholder]="placeholder()"
+    matInput
+  />
   <mat-icon matSuffix>search</mat-icon>
 </mat-form-field>
