@@ -1,0 +1,16 @@
+<div class="flex items-center">
+  <h1 class="text-2xl">{{ title() }}</h1>
+
+  <div class="mx-auto"></div>
+
+  @for (b of buttons(); track $index) {
+    <button [routerLink]="b.route" matButton="filled">
+      <mat-icon>{{ b.icon }}</mat-icon>
+      {{ b.title }}
+    </button>
+  }
+</div>
+
+<div class="my-3">
+  <mat-divider></mat-divider>
+</div>
