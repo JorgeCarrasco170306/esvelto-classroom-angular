@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AuthService } from '../../../services/AuthService';
+import { AuthStateService } from '../../../services/AuthState.service';
 import { LoginRequest } from '../../../models/LoginRequest.dto';
 
 @Component({
@@ -22,11 +22,12 @@ import { LoginRequest } from '../../../models/LoginRequest.dto';
 })
 export class LoginForm {
   private _formBuilder = inject(FormBuilder);
-  private service = inject(AuthService);
+  private authState = inject(AuthStateService);
   private router = inject(Router);
 
   errorMessage = signal<string | null>(null);
   successMessage = signal<string | null>(null);
+  isSubmitting = signal(false);
 
   loginForm = this._formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -35,20 +36,25 @@ export class LoginForm {
 
   onSubmit() {
 
-    if (this.loginForm.invalid) {
+    if (this.loginForm.invalid || this.isSubmitting()) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
+    this.errorMessage.set(null);
+    this.isSubmitting.set(true);
     const request: LoginRequest = this.loginForm.value as LoginRequest;
 
-    this.service.login(request)?.subscribe({
-      next: (response) => {
-
-        this.router.navigate(['/dashboard'])
-        console.log(response.token);
+    this.authState.login(request).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/dashboard').catch(error => {
+          this.isSubmitting.set(false);
+          this.errorMessage.set('No se pudo abrir el panel. Inténtalo de nuevo.');
+          console.error('Error al navegar al dashboard', error);
+        });
       },
       error: (error) => {
+        this.isSubmitting.set(false);
         if (error.status === 409) {
           this.loginForm.controls.email.setErrors({
             ...this.loginForm.controls.email.errors,
@@ -61,9 +67,13 @@ export class LoginForm {
             badCredentials: true
           })
         }
-        console.log(error)
+        this.errorMessage.set(
+          error.status === 409
+            ? 'Debes verificar tu correo antes de iniciar sesión.'
+            : 'El correo o la contraseña no son correctos.'
+        );
+        console.error('Error al iniciar sesión', error);
       },
     });
   }
 }
-

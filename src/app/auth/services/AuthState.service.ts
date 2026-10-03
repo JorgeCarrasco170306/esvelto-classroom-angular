@@ -1,4 +1,7 @@
-import { inject, Injectable, Service, signal } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
+import { Observable, of, throwError } from "rxjs";
+import { catchError, map, switchMap, tap } from "rxjs/operators";
+import { LoginRequest } from "../models/LoginRequest.dto";
 import { UserResponse } from "../models/UserResponse.dto";
 import { AuthService } from "./AuthService";
 
@@ -11,7 +14,7 @@ import { AuthService } from "./AuthService";
     private _user = signal<UserResponse | null>(null);
     readonly user = this._user.asReadonly();
     readonly isAuthenticated = signal(false);
-    readonly isLoading = signal(false);
+    readonly isLoading = signal(true);
 
     setUser(user: UserResponse) {
         this._user.set(user);
@@ -22,27 +25,39 @@ import { AuthService } from "./AuthService";
     clear() {
         this._user.set(null);
         this.isAuthenticated.set(false);
-        this.isLoading.set(true);
+        this.isLoading.set(false);
     }
 
-    loadSession() {
+    loadSession(): Observable<void> {
         const token = this.authService.getToken();
 
         if (!token) {
             this.clear();
-            return;
+            return of(void 0);
         }
 
-        this.authService.me().subscribe({
-            next: (user) => {
-                this.setUser(user);
-            },
-            error: (error) => {
+        return this.authService.me().pipe(
+            tap(user => this.setUser(user)),
+            map(() => void 0),
+            catchError(error => {
                 this.authService.removeToken();
                 this.clear();
-                console.log(error);
-            }
-        })
+                console.error('No se pudo restaurar la sesión', error);
+                return of(void 0);
+            })
+        );
+    }
+
+    login(request: LoginRequest): Observable<UserResponse> {
+        return this.authService.login(request).pipe(
+            switchMap(() => this.authService.me()),
+            tap(user => this.setUser(user)),
+            catchError(error => {
+                this.authService.removeToken();
+                this.clear();
+                return throwError(() => error);
+            })
+        );
     }
 
     logout() {

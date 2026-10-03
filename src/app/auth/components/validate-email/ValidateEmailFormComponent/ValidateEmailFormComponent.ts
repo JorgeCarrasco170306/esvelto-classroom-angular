@@ -15,10 +15,6 @@ import { ValidateEmailRequest } from '../../../models/ValidateEmailRequest.dto';
 })
 export class ValidateEmailFormComponent {
 
-  //TODO : terminar la verificación del codigo de validación de email
-  //TODO : implementar cambio de password y subida de imagen de perfil
-  //TODO : implementar header en el dashboard con todos los modulos de trabajos de la aplicación
-
   service = inject(AuthService);
   router = inject(Router);
   fb = inject(FormBuilder);

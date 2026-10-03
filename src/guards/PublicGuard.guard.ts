@@ -4,13 +4,13 @@ import { AuthStateService } from "../app/auth/services/AuthState.service";
 
 export const publicGuard: CanActivateFn = () => {
 
-    const stateService = inject(AuthStateService);
+    const authState = inject(AuthStateService);
     const router = inject(Router);
 
-    if (stateService.isAuthenticated()) {
-        return false;
+    if (authState.isAuthenticated()) {
+        return router.createUrlTree(['/dashboard']);
     }
 
-    return router.createUrlTree(['/dashboard'])
+    return true;
 
 }

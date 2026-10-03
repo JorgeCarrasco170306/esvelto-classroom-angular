@@ -46,12 +46,15 @@
   <p class="text-center">
     Aún no tienes una cuenta? <a class="text-blue-600" routerLink="/auth/register">Regístrate</a>
   </p>
+  @if (errorMessage()) {
+    <p class="text-center text-red-600" role="alert">{{ errorMessage() }}</p>
+  }
   <div class="flex justify-end mt-2 pt-2">
     <!-- <button mat-button type="button" class="text-slate-600">Cancelar</button> -->
 
-    <button mat-flat-button color="primary" type="submit" class="flex items-end gap-1">
+    <button mat-flat-button color="primary" type="submit" class="flex items-end gap-1" [disabled]="isSubmitting()">
       <mat-icon>person_check</mat-icon>
-      Iniciar Sesión
+      {{ isSubmitting() ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
     </button>
   </div>
 </form>

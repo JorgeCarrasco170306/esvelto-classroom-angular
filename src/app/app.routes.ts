@@ -35,29 +35,41 @@ export const routes: Routes = [
         component: DashboardLayout,
         canActivate: [authGuard],
         children: [
-        ]
-    },
-    {
-        path: 'auth',
-        component: AuthLayout,
-        children: [
+
+            // ! institutions
             {
-                path: 'login',
-                loadComponent: () => import("./auth/pages/LoginPage/LoginPage").then(x => x.LoginPage)
+                path: 'institutions',
+                loadComponent: () => import('./dashboard/institutions/pages/InstitutionsPage/InstitutionsPage').then(x => x.InstitutionsPage)
+            },
+            // ! courses
+            {
+                path: 'courses',
+                loadComponent: () => import('./dashboard/courses/pages/CoursesPage/CoursesPage').then(x => x.CoursesPage)
             },
             {
-                path: 'register',
-                loadComponent: () => import("./auth/pages/RegisterPage/RegisterPage").then(x => x.RegisterPage)
+                path: 'students',
+                loadComponent: () => import('./dashboard/students/pages/StudentsPage/StudentsPage').then(x => x.StudentsPage)
+            },
+            // ! homeworks
+            {
+                path: 'homeworks',
+                loadComponent: () => import('./dashboard/homeworks/pages/HomeworksPage/HomeworksPage').then(x => x.HomeworksPage)
+            },
+            // ! profile
+            {
+                path: 'profile',
+                loadComponent: () => import('./dashboard/profile/pages/ProfilePage/ProfilePage').then(x => x.ProfilePage)
+            },
+            // ! califications
+            {
+                path: 'califications',
+                loadComponent: () => import('./dashboard/califications/pages/CalificationsPage/CalificationsPage').then(x => x.CalificationsPage)
             },
             {
-                path: 'validate-email',
-                loadComponent: () => import("./auth/pages/ValidateEmailPage/ValidateEmailPage").then(x => x.ValidateEmailPage)
-            },
-            {
-                path: '**',
-                redirectTo: 'login',
+                path: '',
+                redirectTo: 'profile',
                 pathMatch: 'full'
-            }
+            },
         ]
     },
     {

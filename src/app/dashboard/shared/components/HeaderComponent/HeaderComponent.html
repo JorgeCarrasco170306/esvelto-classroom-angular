@@ -1,0 +1,66 @@
+<div class="flex m-4 overflow-hidden rounded-2xl shadow-xl">
+  <mat-toolbar>
+    <span class="ms-3">Esvelto Classroom</span>
+    <span class="mx-auto"></span>
+
+    <!-- ! Modules -->
+
+    <!-- ? -->
+
+    <button
+      class="mx-1"
+      [matButton]="institutionsLink.isActive ? 'filled' : 'elevated'"
+      routerLink="/dashboard/institutions"
+      routerLinkActive
+      #institutionsLink="routerLinkActive"
+    >
+      <mat-icon>business</mat-icon>
+      Instituciones
+    </button>
+    <button
+      class="mx-1"
+      [matButton]="coursesLink.isActive ? 'filled' : 'elevated'"
+      routerLink="/dashboard/courses"
+      routerLinkActive
+      #coursesLink="routerLinkActive"
+    >
+      <mat-icon>class</mat-icon>
+      Clases
+    </button>
+    <button
+      class="mx-1"
+      [matButton]="calificationsLink.isActive ? 'filled' : 'elevated'"
+      routerLink="/dashboard/califications"
+      routerLinkActive
+      #calificationsLink="routerLinkActive"
+    >
+      <mat-icon>grade</mat-icon>
+      Calificaciones
+    </button>
+    <button
+      class="mx-1"
+      [matButton]="studentsLink.isActive ? 'filled' : 'elevated'"
+      routerLink="/dashboard/students"
+      routerLinkActive
+      #studentsLink="routerLinkActive"
+    >
+      <mat-icon>groups</mat-icon>
+      Estudiantes
+    </button>
+    <button
+      class="mx-1"
+      [matButton]="homeworksLink.isActive ? 'filled' : 'elevated'"
+      routerLink="/dashboard/homeworks"
+      routerLinkActive
+      #homeworksLink="routerLinkActive"
+    >
+      <mat-icon>assignment</mat-icon>
+      Tareas
+    </button>
+
+    <div class="h-6 border-r-4 rounded-xl border-r-blue-700 mx-2"></div>
+    <button matMiniFab aria-label="Perfil" routerLink="/dashboard/profile">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>

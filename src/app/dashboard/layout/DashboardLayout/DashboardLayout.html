@@ -1,8 +1,15 @@
-<header></header>
+<header>
+  <HeaderComponent />
+</header>
 
-<main>
-  <router-outlet />
+<main class="m-4 shadow-xl">
+  <mat-card class="shadow-xl">
+    <mat-card-content>
+      <router-outlet />
+    </mat-card-content>
+  </mat-card>
 </main>
 
-
-<footer></footer>
+<footer>
+  <FooterComponent />
+</footer>

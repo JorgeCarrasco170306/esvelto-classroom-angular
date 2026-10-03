@@ -7,6 +7,7 @@ import { LoginResponse } from '../models/LoginResponse.dto';
 import { ValidateEmailRequest } from '../models/ValidateEmailRequest.dto';
 import { ResendVerificationEmail } from '../models/ResendEmailVerification';
 import { UserResponse } from '../models/UserResponse.dto';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class AuthService {
   private url = environment.apiUrl;
 
   login(request: LoginRequest) {
-    return this.http.post<LoginResponse>(`${this.url}/auth/login`, request);
+    return this.http.post<LoginResponse>(`${this.url}/auth/login`, request).pipe(
+      tap(response => this.saveToken(response.token))
+    )
   }
 
   register(request: RegisterRequest) {
@@ -35,9 +38,6 @@ export class AuthService {
   me() {
     return this.http.get<UserResponse>(`${this.url}/auth/me`);
   }
-
-
-  //TODO: guardar el token en el localstorage
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
