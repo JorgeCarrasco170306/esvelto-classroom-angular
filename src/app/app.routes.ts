@@ -54,10 +54,6 @@ export const routes: Routes = [
                 path: 'courses',
                 loadComponent: () => import('./dashboard/courses/pages/CoursesPage/CoursesPage').then(x => x.CoursesPage)
             },
-            {
-                path: 'students',
-                loadComponent: () => import('./dashboard/students/pages/StudentsPage/StudentsPage').then(x => x.StudentsPage)
-            },
             // ! homeworks
             {
                 path: 'homeworks',

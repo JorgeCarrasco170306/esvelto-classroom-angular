@@ -9,6 +9,7 @@ import { InstitutionService } from '../../services/InstitutionService.service';
 import { Router } from '@angular/router';
 import { InstitutionRequest } from '../../models/Institution.dto';
 import { AuthStateService } from '../../../../auth/services/AuthState.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-institution-page',
@@ -24,6 +25,7 @@ export class CreateInstitutionPage {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private user = inject(AuthStateService);
+  private snackbar = inject(MatSnackBar)
 
   submitError = signal('');
 
@@ -40,15 +42,23 @@ export class CreateInstitutionPage {
 
     this.submitError.set('');
     const request = this.form.value as InstitutionRequest;
-    request.teacherId = this.user.user()?.id!
+    request.userId = this.user.user()?.id!
     console.log(request)
 
     this.service.add(request).subscribe({
       next: () => {
+        this.snackbar.open('Institución Creada Exitosamente', 'Cerrar', { duration: 3000 })
         this.router.navigate(['/dashboard/institutions']);
       },
-      error: () => {
-        this.submitError.set('No se pudo crear la institución. Intenta nuevamente.');
+      error: (error) => {
+
+        if (error.status === 400) {
+          this.form.get('name')?.setErrors({
+            existe: true
+          })
+        }
+
+        console.log(error)
       },
     })
   }

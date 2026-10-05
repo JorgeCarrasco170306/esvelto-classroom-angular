@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+    import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Institution, InstitutionRequest } from '../models/Institution.dto';
@@ -27,8 +27,15 @@ export class InstitutionService {
         )
     }
 
-    add(req: InstitutionRequest){
+    add(req: InstitutionRequest) {
         return this.http.post<Institution>(`${this.url}/institutions`, req)
     }
 
+    delete(id: string) {
+        return this.http.delete(`${this.url}/institutions/${id}`)
+    }
+
+    findById(id: string) {
+        return this.http.get<Institution>(`${this.url}/institutions/${id}`)
+    }
 }

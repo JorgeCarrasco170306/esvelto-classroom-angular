@@ -13,6 +13,9 @@
       @if (form.controls.name.touched && form.controls.name.hasError('required')) {
         <mat-error>El nombre de la institución es obligatorio.</mat-error>
       }
+      @if (form.controls.name.touched && form.controls.name.hasError('existe')) {
+        <mat-error>Ya tienes una institución con este nombre</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field hintLabel="Testing">
@@ -30,19 +33,9 @@
     </mat-form-field>
 
     <div class="flex justify-end">
-      <button type="submit" matButton="filled">Guardar <mat-icon>check</mat-icon></button>
+      <button [disabled]="form.valid ? false : true" type="submit" matButton="filled">
+        Guardar <mat-icon>check</mat-icon>
+      </button>
     </div>
   </form>
-
-  @if (submitError()) {
-    <p class="mt-4 text-sm text-red-600">{{ submitError() }}</p>
-  }
-
-  <!-- <mat-form-field>
-    <mat-label>Select me</mat-label>
-    <mat-select>
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-    <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
-  </mat-form-field> -->
 </div>
