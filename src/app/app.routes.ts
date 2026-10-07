@@ -54,6 +54,10 @@ export const routes: Routes = [
                 path: 'courses',
                 loadComponent: () => import('./dashboard/courses/pages/CoursesPage/CoursesPage').then(x => x.CoursesPage)
             },
+            {
+                path: 'courses/create',
+                loadComponent: () => import('./dashboard/courses/pages/CreateCourse/CreateCourse').then(x => x.CreateCourse)
+            },
             // ! homeworks
             {
                 path: 'homeworks',

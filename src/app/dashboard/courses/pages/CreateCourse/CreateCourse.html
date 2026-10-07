@@ -1,0 +1,29 @@
+<PageHeaderComponent title="Crear Curso" />
+
+<div class="flex">
+  <form (ngSubmit)="create()" [formGroup]="courseForm" action="">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> Institución </mat-label>
+      <mat-select formControlName="institutionId">
+        @for (institution of institutions(); track institution.id) {
+          <mat-option [value]="institution.id">{{ institution.name }}</mat-option>
+        }
+      </mat-select>
+
+      @if (courseForm.get('institutionId')?.hasError('required')) {
+        <mat-error>La institución es obligatoria</mat-error>
+      }
+    </mat-form-field>
+
+    <button [disabled]="courseForm.invalid" type="submit" class="mx-1" matButton="filled">
+      Guardar <mat-icon>check</mat-icon>
+    </button>
+    <button type="button" class="mx-1" routerLink="/dashboard/courses" matButton>
+      Cancelar <mat-icon>arrow_back</mat-icon>
+    </button>
+  </form>
+</div>

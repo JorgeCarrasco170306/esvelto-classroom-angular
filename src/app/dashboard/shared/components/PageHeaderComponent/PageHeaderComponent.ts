@@ -17,7 +17,7 @@ export interface Button {
 })
 export class PageHeaderComponent {
 
-  buttons = input.required<Button[]>();
+  buttons = input<Button[]>();
   title = input.required<string>();
 
 }

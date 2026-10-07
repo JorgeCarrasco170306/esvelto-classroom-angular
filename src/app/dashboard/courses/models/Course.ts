@@ -5,5 +5,11 @@ export interface Course {
 }
 
 interface CourseInstitution {
+    id: string,
     name: string
+}
+
+export interface CourseRequest {
+    name: string,
+    institutionId: string
 }

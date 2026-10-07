@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseService } from '../../services/CourseService.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../../shared/components/DialogComponent/DialogComponent';
 
 @Component({
   selector: 'app-courses-page',
@@ -22,22 +24,48 @@ export class CoursesPage {
   snackbar = inject(MatSnackBar);
   service = inject(CourseService);
   router = inject(Router);
+  dialog = inject(MatDialog);
   courses = signal<Course[]>([]);
   loading = signal(false);
 
 
   displayedColumns: string[] = ['name', 'institution', 'acciones']
+  openDialog(id: string) {
 
-  openDialog(arg0: any) {
-    throw new Error('Method not implemented.');
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '350px',
+      data: {
+        title: 'Eliminar Curso?',
+        message: "Esta acción no es reversible y eliminará todos los registros relacionados como las tareas dentro de este curso."
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(x => {
+      if (x) {
+        this.service.delete(id).subscribe({
+          next: (res) => {
+            this.snackbar.open('Insitución eliminada', 'Cerrar', { duration: 3000 })
+          },
+          error: (x) => console.log(x)
+        })
+        this.loadCourses();
+      } else {
+        return;
+      }
+    })
   }
   viewCourse(arg0: any) {
     throw new Error('Method not implemented.');
   }
 
-
   ngOnInit() {
 
+    this.loadCourses();
+
+  }
+
+  loadCourses() {
     this.loading.set(true)
 
     this.service.findAll().subscribe({
@@ -52,7 +80,6 @@ export class CoursesPage {
         this.loading.set(true);
       }
     })
-
   }
 
   onSearch($event: string) {
@@ -62,7 +89,7 @@ export class CoursesPage {
   buttons: Button[] = [
     {
       title: 'Crear Curso',
-      route: '/course/create',
+      route: '/dashboard/courses/create',
       icon: 'class'
     }
   ]
