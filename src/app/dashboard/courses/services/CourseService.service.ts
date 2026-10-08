@@ -23,4 +23,8 @@ export class CourseService {
         return this.http.delete(`${this.url}/${id}`)
     }
 
+    findById(id: string) {
+        return this.http.get(`${this.url}/${id}`)
+    }
+
 }
