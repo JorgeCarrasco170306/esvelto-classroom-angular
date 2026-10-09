@@ -3,7 +3,6 @@ import { inject, Service } from "@angular/core";
 import { environment } from "../../../../environments/environment.development";
 import { Course, CourseRequest } from "../models/Course";
 import { PageResposne } from "../../shared/models/PageResponse.dto";
-import { CreateCourse } from "../pages/CreateCourse/CreateCourse";
 
 @Service()
 export class CourseService {
@@ -24,7 +23,7 @@ export class CourseService {
     }
 
     findById(id: string) {
-        return this.http.get(`${this.url}/${id}`)
+        return this.http.get<Course>(`${this.url}/${id}`)
     }
 
 }

@@ -1,10 +1,4 @@
 <PageHeaderComponent title="Instituciones" [buttons]="buttons"></PageHeaderComponent>
-
-<!-- TODO: mostrar todas las instituciones y poder crear instituciones-->
-<!-- TODO: mostrar el detalle de una institución con todos sus estudiantes -->
-
-<!-- search -->
-<!-- TODO: implementar búsqueda -->
 <SearchComponent (search)="onSearch($event)" label="Buscar" placeholder="UASD" />
 <!-- table -->
 <table mat-table [dataSource]="institutions()" class="mat-shadow-2">

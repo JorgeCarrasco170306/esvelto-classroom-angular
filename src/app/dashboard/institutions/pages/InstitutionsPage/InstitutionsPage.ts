@@ -88,7 +88,6 @@ export class InstitutionsPage {
 
     dialogRef.afterClosed().subscribe(x => {
       if (x) {
-        //TODO: delete institución y recargar
         this.service.delete(id).subscribe({
           next: (res) => {
             this.snackbar.open('Insitución eliminada', 'Cerrar', { duration: 3000 })

@@ -5,7 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Course } from '../../models/Course';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CourseService } from '../../services/CourseService.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,7 +15,7 @@ import { DialogComponent } from '../../../shared/components/DialogComponent/Dial
 
 @Component({
   selector: 'app-courses-page',
-  imports: [MatProgressBar, PageHeaderComponent, SearchComponent, MatTableModule, MatButtonModule, MatIconModule, MatPaginator],
+  imports: [RouterLink, MatProgressBar, PageHeaderComponent, SearchComponent, MatTableModule, MatButtonModule, MatIconModule, MatPaginator],
   templateUrl: './CoursesPage.html',
 })
 export class CoursesPage {
@@ -29,7 +29,7 @@ export class CoursesPage {
   loading = signal(false);
 
 
-  displayedColumns: string[] = ['name', 'institution', 'acciones']
+  displayedColumns: string[] = ['name', 'institution', 'students',  'acciones']
   openDialog(id: string) {
 
 
@@ -54,9 +54,6 @@ export class CoursesPage {
         return;
       }
     })
-  }
-  viewCourse(arg0: any) {
-    throw new Error('Method not implemented.');
   }
 
   ngOnInit() {

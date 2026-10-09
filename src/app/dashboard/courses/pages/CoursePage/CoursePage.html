@@ -1,1 +1,59 @@
-<p>CoursePage works!</p>,
+<PageHeaderComponent [title]="course()?.name!"></PageHeaderComponent>
+
+<div class="flex justify-start gap-2">
+  <button matButton="elevated">{{ course()?.institution.name }}</button>
+  <div class="mx-auto"></div>
+  <button matButton="filled"><mat-icon>add</mat-icon>Crear Tarea</button>
+  <button matButton="filled"><mat-icon>add</mat-icon>Crear Exámen</button>
+  <button matButton="filled"><mat-icon>add</mat-icon>Agregar Estudiante</button>
+</div>
+
+<div class="my-10">
+  <mat-tab-group>
+    <!-- ! PRIMER TAB-->
+    <mat-tab label="Estudiantes">
+      <mat-card>
+        <mat-card-content>
+          <table mat-table [dataSource]="dataSource()" class="mat-shadow-2">
+            <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+            <ng-container matColumnDef="no">
+              <th mat-header-cell *matHeaderCellDef>No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }} {{ element.lastname }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Correo electrónico</th>
+              <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let element">
+                <button matIconButton>
+                  <mat-icon>chat</mat-icon>
+                </button>
+                <button matIconButton>
+                  <mat-icon>close</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+    <!-- ! SEGUNDO TAB-->
+    <mat-tab label="Tareas"> Content 2 </mat-tab>
+    <!-- ! TERCER TAB-->
+    <mat-tab label="Exámenes"> Content 3 </mat-tab>
+  </mat-tab-group>
+</div>
